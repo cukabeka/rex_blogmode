@@ -1,0 +1,11 @@
+Dies ist der Inhalt der Datei "_txt_include_example.txt".
+
+Die Datei befindet sich im Ordner ./pages des Addons.
+
+Da sie eine _reine_ Textdatei *ohne* Textile markup ist, wird sie in dieser Form
+"as is" angezeigt, d.h. ohne jegliche Formatierung und lediglich die Zeilenumbrüche
+abbildend.
+
+Einziger Bonus: web, mailto & ftp links werden geparst, und in klickbare links umgewandelt:
+
+www.redaxo.de | http://redaxo.de | mailto:someone@redaxo.de | ftp://ftp.redaxo.de

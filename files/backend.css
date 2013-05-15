@@ -1,0 +1,139 @@
+/**
+* Addon_Template
+*
+* @author http://rexdev.de
+* @link   https://github.com/jdlx/addon_template
+*
+* @package redaxo4.3
+* @version 0.2.1
+*/
+
+/* OVERRIDES FÜR floatende radio/checkbox @ css_form.css */
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-checkbox.floated span,
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-radio.floated span {
+  clear: both;
+  display: block;
+  float: left;
+  width: 145px;
+  padding: 5px;
+  margin-bottom:0;
+  }
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-label-right.floated input.rex-form-checkbox,
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-label-right.floated input.rex-form-radio {
+  margin: 4px 5px 0 0;
+  float:left;
+  clear:none;
+  }
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-checkbox.floated label,
+#rex-addon-editmode.rex-form div.rex-form-row p.rex-form-radio.floated label {
+  display:inline-block;
+  margin:0 20px 0 0;
+  padding:5px 0 0 0;
+  width:auto;
+  }
+
+/* ADDON HEADLINE */
+span.addonversion {
+  font-size:10px;
+  color:silver;
+  }
+
+/* ADDON CHAPTER-LINKS */
+a.jsopenwin,
+a.blank,
+span.jsopenwin {
+  padding-right:16px;
+  background:url('jsopenwin.gif') no-repeat 100% 0 ;
+  }
+
+/* ADDON CONTENT */
+.addon-template {
+  padding:2px 8px 8px 8px;
+  }
+.addon-template p {
+  font-size:12px;
+  }
+.addon-template h1 {
+  font-size:16px;
+  border-bottom:1px solid #DFE9E9;
+  margin:2px 0 10px 0;
+  padding:0 0 2px 0;
+  }
+.addon-template h2 {
+  font-size:14px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.addon-template h3 {
+  font-size:13px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.addon-template h4 {
+  font-size:12px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.addon-template h5 {
+  font-size:11px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+.addon-template cite,
+.addon-template code,
+.addon-template pre {
+  color:blue;
+  font-family:monospace;
+  font-style:normal;
+  font-size:12px;
+  }
+.addon-template pre {
+  overflow:auto;
+  border:1px dashed #C0C0C0;
+  background:#FAF9F5;
+  margin:2px 4px 8px 0;
+  padding:8px;
+  line-height:12px;
+  }
+.addon-template pre.plain {
+  overflow:auto;
+  border:0;
+  background:transparent;
+  margin:2px 4px 8px 0;
+  padding:8px;
+  line-height:12px;
+  color:black;
+  }
+.addon-template hr {
+  height:1px;
+  border:0;
+  border-top:1px solid silver;
+  margin:8px 0;
+  padding:0;
+  }
+
+/* REX_FORM JS TOGGLE */
+#subpage-database .rex-form fieldset .rex-form-wrapper {
+  /*display:none;*/
+}
+#subpage-database .rex-form fieldset legend {
+  cursor:pointer;
+  padding-left:16px;
+  background:url('folder_toggle_triangle.png') no-repeat 0 -13px ;
+}
+#subpage-database .rex-form fieldset legend.closed {
+  background:url('folder_toggle_triangle.png') no-repeat 0 8px ;
+}
+
+/*GITHUB API*/
+.addon-template ul.github-api {
+  list-style-type:none;
+  }
+.addon-template ul.github-api li {
+  background:none;
+  border:0;
+  padding:0;
+  }
+.addon-template ul.github-api .github-date {
+  margin-right:15px;
+  }

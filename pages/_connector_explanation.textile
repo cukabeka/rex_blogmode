@@ -1,0 +1,9 @@
+h3. DON'T PANIC!
+
+Dies ist eine spezielle subpage, die für besondere Aufgaben sozusagen _außerhalb_ des normalen Backend Kontexts gedacht ist, und daher "faceless", d.h. ohne das das sonstige HTML des Redaxo backends ausgeführt wird.
+
+Tatsächlich ließe sich prinzipiell jede der subpages faceless ausführen, denn _ob_ in dieser Form ausgegeben wird, wird einfach über den Parameter @faceless=1@ im Aufruf gesteuert.. es dient lediglich der Übersichtlichkeit, Sonderaufgaben eben auch in einer eigenen Datei auszuführen. Um dies zu verdeutlichen: diese Seite ohne den @faceless@ Parameter im normales Backend-Kontext: "index.php?page=addon_template&subpage=connector":index.php?page=addon_template&subpage=connector
+
+h3. Anwendungsbeispiel
+
+Eine typische Anwendung wäre es z.b. eine CSS Datei aus dem Addonordner einzulesen und auszugeben.. z.b. so: "index.php?page=addon_template&subpage=connector&faceless=1&func=css":index.php?page=addon_template&subpage=connector&faceless=1&func=css
