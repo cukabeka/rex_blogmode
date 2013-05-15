@@ -1,7 +1,0 @@
-h1. Addon_Template Changelog
-
-*0.1* - 19.07.2010
-
-* erstes release
-
-bc. Dies ist der Textile formatierte Inhalt der Datei "_changelog.textile"
