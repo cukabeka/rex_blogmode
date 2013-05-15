@@ -1,0 +1,5 @@
+h2. Dies ist der Inhalt der Datei @_txt_include_example.txt@.
+
+Die Datei befindet sich im Ordner @./pages@ des Addons.
+
+Dies ist eine Textdatei *mit* Textile markup und wird entsprechend geparst
