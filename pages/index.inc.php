@@ -41,7 +41,8 @@ if($faceless != 1)
   //////////////////////////////////////////////////////////////////////////////
   if(!$subpage)
   {
-    $subpage = 'settings';  /* DEFAULT SUBPAGE */
+    $subpage = 'settings';  /* DEFAULT SUBPAGE   addpost*/
+    // if admin -> settings
   }
   require $REX['INCLUDE_PATH'] . '/addons/'.$mypage.'/pages/'.$subpage.'.inc.php';
 

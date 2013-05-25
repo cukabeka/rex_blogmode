@@ -1,43 +1,29 @@
-h1. Addon Template Readme
+h1. REX Blogmode
 
-h3. rapid prototyping..
+h3. Bloggen in der REDAXO-Struktur
 
-Sinn & Zweck dieses Addons ist es einen universellen Rohbau für schnelle Eigenentwicklungen zu bieten.  Es richtet sich dabei sowohl an ambitionierte Einsteiger, die zum ersten Mal ein eigenes Addon bauen wollen, als auch an fortgeschrittene, die ad hoc eine Addon Idee antesten wollen ohne sich mit dem einhergehenden Kleinkram herumschlagen zu müssen.
+Sinn & Zweck dieses Addons ist es, User einfach und unkompliziert neue Artikel anlegen zu lassen, ohne auf das OOFramework von Redaxo verzichten zu müssen. Wer immer dasselbe Modul auf Seiten in einer Kategorie legt, für den stellt dieses Addon in der täglichen redaktionellen Arbeit eine enorme Erleichterung dar.
+Das heißt: Neue Artikel können ganz einfach mit einem Artikel angelegt, mit dem Content befüllt werden und online gestellt. 
 
-h3. Vorangelegte Elemente & Funktionalitäten
+h3. Einstellungen
 
-* *automatischer Identifier:* Der interne Identifier wird automatisch aus dem Ordnernamen abgeleitet, d.h. lediglich mit der Umbenennung des Ordner ist das Addon _unter dem neuen Namen_ installierbar und sofort "betriebsbereit".
-* *Addon Einstellungen:* generische Seite für Addon-Einstellungen, in der alle input & Redaxo widget Varianten exemplarisch vorangelegt sind. Die Abfrage und Speicherung der Formular Parameter erfolgt automatisiert, d.h. um das Fomular zu erweitern oder zu verändern müssen lediglich Änderungen am Formular vorgenommen werden. Die Speicherung der Addon Einstellungen erfolgt ohne Datenbank in der ??config.inc.php??  des Addons.
-* *Datenbank Tabelle:* Das Addon legt bei der Installation eine eigene, generische Datenbank Tabelle (??rex_720_[AddonName]??) mit 10 Feldern an. Korrespondierend dazu ist eine Seite für die Verwaltung der Tabellendaten angelegt (per ??rex_list?? & ??rex_form??), auch hier wieder mit allen zur Verfügung stehenden inputs & widgets.
-* *Modul Installer:* Option ein Modul zu installieren bzw. vorhandenes Modul wiederherzustellen, Anzeige des Modulcodes. Der Modul Code wird aus Dateien bezogen.
-* *Automatische Includes:* Klassen und Funktionen die in die ensprechenden Addon-Ordner kopiert werden, werden automatisch included. Voraussetzung: Dateinamen richten sich nach den Redaxo Konventionen, konkret: ??function.$IRGENDWAS.inc.php?? bzw. ??class.$IRGENDWAS.inc.php??
-* *faceless Subpage:* Eine subpage, bei der nur der output der Seite ohne das HTML des Backends ausgegeben wird. Sie kann z.b. dazu dienen Daten oder Funktionen von außerhalb aufzurufen, wo eben allein die Ausgabe der konkreten Funktion gewünscht ist und sonst nichts.
-* *Hilfesektion:* Vorangelegte Seiten für Hilfe/Readme und Changelog, Beispiele für die unterschiedlichen Möglichkeiten Inhalte zu includen bzw. darzustellen:
-## Textile markup Dateien (.textile)
-## reine Text-Dateien (.txt ohne markup)
-## PHP
-## externe Quellen  (URL als iframe oder externer link mit popup)
+Hier wird das Template und das Modul definiert, das im Blogmode bei neuen Artikeln zum Einsatz kommt. Zusätzlich müssen (!) hier die Kategorien ausgewählt werden, die beim Anlegen eines Artikels angeboten werden sollen.
+
+h3. Mitgelieferte Module
+
+Die beiden Module sind Beispiele, wie sinnvoll mit diesem Konzept umgegangen werden kann. Der Startartikel der gewählten Kategorie sollte sinnvollerweise das Modul "Blogmode Kategorieübersicht" enthalten. 
 
 h3. Was das Addon nicht ist..
 
 Das Addon ist zwar explizit dahingehend programmiert, daß es so übersichtlich und nachvollziehbar wie möglich gehalten ist, aber es ersetzt weder ein Tutorial noch eine ungefähre Vorstellung von Aufbau & Funktion eines Redaxo Addons..  und zumindest gewisse PHP/HTML Kenntnisse sind selbstredend. Sind diese Voraussetzungen erfüllt, dürfte man per copy, paste & adapt - _und einer eigenen Idee was man eigentlich machen will_ - aber schnell etwas funktionierendes auf solider Basis erstellen können.
 
-h3. Addon Quickstart
+h3. Roadmap
 
-# Addonordner umbennen auf eigenen Projektnamen
-# Installieren und aktivieren
-# fertig: Der Prototyp ist betriebsbereit für Umsetzung der eigenen Ideen..
+* Switch, ob beim Anlegen default online oder offline
+* Anlegen von Artikeln ohne Temp-Artikel
+* Mehrere Module zur Auswahl
+* Tagging via MetaInfos
+* Trackbacks
+* Comments
+* Cleanup von blogmode_temp-Artikeln
 
-h3. post prototyping
-
-Sobald die eigene Funktionalität gereift ist, bzw. spätestens wenn man sein Addon veröffentlichen will, sollte man  folgendes anpassen:
-* Code für automatischen Addonnamen aus Ordnernamen gegen statischen Identifier austauschen
-* Addon ??rxid?? auf die des eigenen Addons ändern (die rxid erhält man in dem Moment wo man ein Addon @ Redaxo.de registriert)
-* Datenbank Tabelle: eigenen spezifischen Namen anhand der ??rxid?? vergeben, generische Feldnamen den eigenen Vorstellungen anpassen und evlt. Anpassungen hinsichtlich Feldtyp und dergleichen.
-
-h3. Download
-
-* @ Redaxo: "http://www.redaxo.de/180-0-addon-details.html?addon_id=720":http://www.redaxo.de/180-0-addon-details.html?addon_id=720
-* SVN Versionen: "http://svn.rexdev.de/redmine/projects/addon-template/activity":http://svn.rexdev.de/redmine/projects/addon-template/activity
-
-bc. Dies ist der Inhalt der Textile formatierten Datei "README.textile"

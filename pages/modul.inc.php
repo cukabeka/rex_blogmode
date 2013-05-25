@@ -18,12 +18,12 @@ $modul_id           = rex_request('demo_module_id', 'int');
 
 // STANDARD MODUL INSTALL
 ////////////////////////////////////////////////////////////////////////////////
-$modul_in  = 'a720_demo.modul.in.php';
-$modul_out = 'a720_demo.modul.out.php';
-$modul_uid = '### UID:m720demo ###';
+$modul_in  = 'rex_blogmode_artlist.modul.in.php';
+$modul_out = 'rex_blogmode_artlist.modul.out.php';
+$modul_uid = '### UID:rex_blogmode_liste ###';
 
 $modul_id = 0;
-$modul_name = '';
+$modul_name = 'Kategorieansicht';
 
 $gm = new rex_sql;
 $gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$modul_uid.'%"');

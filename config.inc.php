@@ -58,7 +58,37 @@ $REX['ADDON'][$mypage]['params_cast'] = array (
 // DYNAMISCHE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
-$REX["ADDON"]["rex_blogmode"]["settings"] = NULL;
+$REX["ADDON"]["rex_blogmode"]["settings"] = array (
+  'SELECT' => 
+  array (
+    'module_id' => '2',
+    'template_id' => '1',
+  ),
+  'MULTISELECT' => 
+  array (
+    'categories' => 
+    array (
+      0 => '21',
+      1 => '5',
+    ),
+  ),
+  'LINKLIST' => 
+  array (
+    1 => '',
+  ),
+  'TEXTINPUT' => 
+  array (
+    1 => '',
+  ),
+  'TEXTAREA' => 
+  array (
+    1 => '',
+  ),
+  'VALUE' => 
+  array (
+    4 => '2',
+  ),
+);
 // --- /DYN
 
 
@@ -90,11 +120,8 @@ if ($REX['REDAXO'])
 //////////////////////////////////////////////////////////////////////////////
 $REX['ADDON'][$mypage]['SUBPAGES'] = array (
   //     subpage    ,label                         ,perm   ,params               ,attributes
-  array (''         ,'Einstellungen'               ,''     ,''                   ,''),
-  array ('database' ,'Datenbank'                   ,''     ,''                   ,''),
-  array ('addpost'  ,'Add Post'                    ,''     ,''                   ,''),
-  array ('modul'    ,'Modul'                       ,''     ,''                   ,''),
-  array ('includes' ,'Include Beispiele'           ,''     ,''                   ,''),
-  array ('connector','Connector (faceless subpage)',''     ,array('faceless'=>1) ,'' /*array('class'=>'blafasel') can't di: rex_title bug*/),
+  array ('settings' ,'Einstellungen'               ,'admin'     ,''                   ,''),
+  array ('addpost'	,'Add Post'                    ,''     ,''                   ,''),
+  array ('modul'    ,'Modul'                       ,'admin'     ,''                   ,''),
   array ('help'     ,'Hilfe'                       ,''     ,''                   ,''),
 );
