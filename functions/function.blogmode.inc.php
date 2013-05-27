@@ -25,7 +25,6 @@ if (!function_exists('get_id_for_post'))
   function get_id_for_post($params,$return = FALSE)
   {
   
-
   global $REX;
   global $myREX;
   
@@ -42,7 +41,7 @@ if (!function_exists('add_slice_for_post'))
 {
   function add_slice_for_post($params,$return = FALSE)
   {
-  	return (int) $params['id'];
+  	//return (int) $params['id'];
   }
 }
 

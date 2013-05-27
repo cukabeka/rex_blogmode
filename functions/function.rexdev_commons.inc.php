@@ -21,7 +21,7 @@ if (!function_exists('a720_incparse'))
       case 'textile':
       $source = $root.$source;
       $content = file_get_contents($source);
-      $html = a720_textileparser($content,true);
+      $html = a720_textileparser(utf8_encode($content),true);
       break;
 
       case 'txt':

@@ -43,7 +43,7 @@ $outputA = "";
 $add_head = "";
 $class = "";
 
-// development overrides
+// overrides
 $function    = 'add';
 $categories  = $myREX['settings']['MULTISELECT']['categories'];
 $category_id = $myREX['settings']['MULTISELECT']['categories'][0];
@@ -250,7 +250,6 @@ $select = '
 //////////////////////////////////////////////
 
 if(isset($myREX['temp']['article_id'])) $article_id = $myREX['temp']['article_id'];
-#if(isset($myREX['temp']['category_id'])) $category_id = $myREX['temp']['category_id'];
 $category_id = rex_request('category_id');
 $_REQUEST['module_id'] = $module_id;
 
@@ -303,22 +302,25 @@ $output = str_replace(
       if ($CM->getRows() != 1)
       {
         // ------------- START: MODUL IST NICHT VORHANDEN
-        $global_warning = $I18N->msg('module_not_found')." ";
+        $global_warning = $I18N->msg('module_not_found')."<br>";
         // ------------- END: MODUL IST NICHT VORHANDEN
       }
       else
       {
         // ------------- MODUL IST VORHANDEN
 
-        // ----- RECHTE AM MODUL ?
-        if($function != 'delete' && !rex_template::hasModule($template_attributes,$ctype,$module_id))
+        // ----- RECHTE AM MODUL? 
+        if(
+        	$function != 'delete' 
+        	&& !rex_template::hasModule($template_attributes,$ctype,$module_id)
+        )
         {
-          $global_warning = $I18N->msg('no_rights_to_this_function')." ";
+          $global_warning = $I18N->msg('no_rights_to_this_function')."<br>";
 
         } elseif (!($REX['USER']->isAdmin() || $REX['USER']->hasPerm('module[' . $module_id . ']') || $REX['USER']->hasPerm('module[0]')))
         {
           // ----- RECHTE AM MODUL: NEIN
-          $global_warning = $I18N->msg('no_rights_to_this_function')." ";
+          $global_warning = $I18N->msg('no_rights_to_this_function')."<br>";
         } else 
         {
           // ----- RECHTE AM MODUL: JA
@@ -346,15 +348,19 @@ $output = str_replace(
             if ($action_message != '')
               $warning = $action_message;
             elseif ($function == 'delete')
-              $warning = $I18N->msg('slice_deleted_error')." ";
+              $warning = $I18N->msg('slice_deleted_error')."<br>";
             else
-              $warning = $I18N->msg('slice_saved_error')." ";
+              $warning = $I18N->msg('slice_saved_error')."<br>";
 
           }
           else
           {
-            // ----- SAVE/UPDATE SLICE
-            if ($function == 'add' || $function == 'edit')
+            // ----- SAVE/UPDATE SLICE + Keine doppelten Slices!
+            if ( 	
+            	($function == 'add' || $function == 'edit' ) 
+            	&&
+            	rex_request('btn_save') != ""
+            )
             {
               $newsql = rex_sql::factory();
               // $newsql->debugsql = true;
@@ -382,7 +388,7 @@ $output = str_replace(
                 $newsql->addGlobalUpdateFields();
                 if ($newsql->update())
                 {
-                  $info = $action_message . $I18N->msg('block_updated')." ";
+                  $info = $action_message . $I18N->msg('block_updated')."<br>";
                   
                   // ----- EXTENSION POINT
                   $info = rex_register_extension_point('SLICE_UPDATED', $info,
@@ -415,7 +421,7 @@ $output = str_replace(
                   $last_id = $newsql->getLastId();
                   if ($newsql->setQuery('UPDATE ' . $REX['TABLE_PREFIX'] . 'article_slice SET re_article_slice_id=' . $last_id . ' WHERE re_article_slice_id=' . $slice_id . ' AND id<>' . $last_id . ' AND article_id=' . $article_id . ' AND clang=' . $clang .' AND revision='.$slice_revision))
                   {
-                    $info = $action_message . $I18N->msg('block_added')." ";
+                    $info = $action_message . $I18N->msg('block_added')."<br>";
                     $slice_id = $last_id;
                     
                     
@@ -502,14 +508,14 @@ else {
 
       $meta_sql = rex_sql::factory();
       $meta_sql->setTable($REX['TABLE_PREFIX'] . "article");
-      // $meta_sql->debugsql = 1;
+      #$meta_sql->debugsql = 1;
       $meta_sql->setWhere("id='$article_id' AND clang=$clang");
       $meta_sql->setValue('name', $article_name);
       $meta_sql->addGlobalUpdateFields();
 
       if($meta_sql->update())
       {
-        $info .= $I18N->msg("article_updated")." ";
+        $info .= $I18N->msg("article_updated")."<br>";
         rex_deleteCacheArticle($article_id, $clang);
       }
       else
@@ -527,21 +533,21 @@ else {
       {
         if (rex_moveArticle($article_id, $cur_category_id, $category_id_new))
         {
-          $info .= $I18N->msg('content_articlemoved')." ";
-          #ob_end_clean();
-          #header('Location: index.php?page=content&article_id=' . $article_id . '&mode=meta&clang=' . $clang . '&ctype=' . $ctype . '&info=' . urlencode($info));
-          #exit;
+          $info .= $I18N->msg('content_articlemoved')."<br>";
+          ob_end_clean();
+          header('Location: index.php?page=content&article_id=' . $article_id . '&mode=meta&clang=' . $clang . '&ctype=' . $ctype . '&info=' . urlencode($info));
+          exit;
         }
         elseif($cur_category_id == $category_id_new) 
         {}
         else
         {
-          $warning .= $I18N->msg('content_errormovearticle')." ";
+          $warning .= $I18N->msg('content_errormovearticle')."<br>";
         }
       }
       else
       {
-        $warning .= $I18N->msg('no_rights_to_this_function')." ";
+        $warning .= $I18N->msg('no_rights_to_this_function')."<br>";
       }
     }
 
@@ -556,7 +562,7 @@ else {
 
       if($meta_sql->update())
       {
-        $info .= $I18N->msg("article_status_updated")." ";
+        $info .= $I18N->msg("article_status_updated")."<br>";
         rex_deleteCacheArticle($article_id, $clang);
       }
       else
@@ -575,15 +581,16 @@ if ($warning != "") echo rex_warning ($warning);
 
 $out_slice = OOArticleSlice::getSlicesForArticleOfType($article_id,$module_id);
 if(is_object($out_slice)){
-	foreach ($out_slice as $s) {
-		echo $s->getHtml();
-	}
+		//output HTML of slice? wie
+		if(is_object($out_slice)) echo $out_slice->getHtml();
 }
-echo '<div class="rex-form-row">';
+echo rex_info('Artikel veröffentlicht: '.OOArticle::getArticleById($article_id)->getName());
+
+echo '<div class="rex-form-row rex-blogmode-done">';
 echo '<a class="rex-button" href="index.php?page=content&article_id='.$article_id.'&mode=edit&clang=0&ctype=1"><span><span>Editieren</span></span></a>';
 echo '<a class="rex-button" href="index.php?page=structure&article_id='.$article_id.'&function=status_article&category_id='.$category_id_new.'&clang=0"><span><span>Offline setzen</span></span></a>';
 echo '<a class="rex-button" href="../'.rex_getUrl($article_id).'" target="_blank"><span><span>Anzeigen</span></span></a>';
 echo '<a class="rex-button" href="index.php?page='.$mypage.'"><span><span>Weiterer Artikel</span></span></a>';
 echo '</div>';
-http://192.168.56.101/naschdwor/redaxo/index.php?page=structure&article_id=45&function=status_article&category_id=0&clang=0
 }
+

@@ -14,115 +14,138 @@
 $mypage             = rex_request('page', 'string');
 $subpage            = rex_request('subpage', 'string');
 $func               = rex_request('func', 'string');
-$modul_id           = rex_request('demo_module_id', 'int');
+$modul_id           = rex_request('module_id', 'int');
+$file_id            = rex_request('file_id', 'int');
 
 // STANDARD MODUL INSTALL
 ////////////////////////////////////////////////////////////////////////////////
+
+$template1 = "";
+$addonname = "Blogmode";
+
 $modul_in  = 'rex_blogmode_artlist.modul.in.php';
 $modul_out = 'rex_blogmode_artlist.modul.out.php';
 $modul_uid = '### UID:rex_blogmode_liste ###';
+$modul_name = 'Kategorieansicht mit Bildvorschau';
 
-$modul_id = 0;
-$modul_name = 'Kategorieansicht';
 
-$gm = new rex_sql;
-$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$modul_uid.'%"');
+$modul_in2  = 'rex_blogmode_the_post.modul.in.php';
+$modul_out2 = 'rex_blogmode_the_post.modul.out.php';
+$modul_uid2 = '### UID:rex_blogmode_the_post ###';
+$modul_name2 = 'Detailansicht';
 
-foreach($gm->getArray() as $module)
-{
-  $modul_id   = $module["id"];
-  $modul_name = $module["name"];
-}
 
-if ($func == 'install_modul')
-{
-  $default_module_name = $mypage.' Demo Modul';
+  $sql = rex_sql::factory();
+  
+  $page = rex_request('page', 'string');
+  $subpage = rex_request('subpage', 'string');
+  $module_in = null;
+  $module_out = null;
+  $module_name = null;
 
-  // Daten einlesen
-  $in  = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_in);
-  $out = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_out);
-
-  $mi = new rex_sql;
-  // $mi->debugsql = 1;
-  $mi->setTable("rex_module");
-  $mi->setValue("eingabe",addslashes($in));
-  $mi->setValue("ausgabe",addslashes($out));
-
-  if (isset($_REQUEST['demo_module_id']) && $modul_id == $_REQUEST['demo_module_id'])
-  {
-    // altes Modul aktualisieren
-    $mi->setWhere('id="'.$modul_id.'"');
-    $mi->update();
-    echo rex_info('Modul "'.$modul_name.'" wurde wiederhergestellt.');
-  }
-  else
-  {
-    // neues Modul installieren
-    $mi->setValue('name',$default_module_name);
-    $mi->insert();
-    echo rex_info('Modul wurde angelegt als "'.$default_module_name.'"');
-  }
-  unset($mi);
-}
-
-// MAIN
-////////////////////////////////////////////////////////////////////////////////
-$standard_msg = array('','');
-if($modul_id > 0)
-{
-  $standard_msg = array(
-  'Weiteres ',
-  ' oder vorhandenes Modul wiederherstellen: <a href="index.php?page='.$mypage.'&amp;subpage=modul&amp;func=install_modul&amp;demo_module_id='.$modul_id.'">['.$modul_id.'] '.htmlspecialchars($modul_name).'</a>'
-  );
-}
-
-echo '
-<div class="rex-addon-output" id="subpage-'.$subpage.'">
-  <h2 class="rex-hl2" style="font-size: 1em;">Modul Installer</h2>
-
-  <div class="rex-addon-content">
-    <div class="addon_template">
-      <ul>
-        <li>'.$standard_msg[0].'<a href="index.php?page='.$mypage.'&amp;subpage=modul&amp;func=install_modul">Beispielmodul installieren</a>'.$standard_msg[1].'</li>
-        <li><a id="standard_show">Modul Code anzeigen</a></li>
+  if(OOAddon::isAvailable($mypage)) {
+?>
+    <div class="rex-addon-content">
+      <h2>Module installieren</h2>
+      <ul style="list-style: none;line-height: 2.0em;">
+        <li><a href="index.php?page=<?=$page?>&subpage=<?=$subpage?>&func=1"><?php echo $addonname." ".$modul_name; ?></a></li>
+        <li><a href="index.php?page=<?=$page?>&subpage=<?=$subpage?>&func=2"><?php echo $addonname." ".$modul_name2; ?></a></li>
       </ul>
-    </div><!-- /.addon_template -->
+    </div>
+<?php
+  if(rex_get('func')) {
+    global $REX;
+    $func = rex_get('func');
 
-    <div class="addon_template" id="demo_modul" style="display:none;">
-    <h4>'.$modul_in.':</h4>';
-      $file = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_in;
-      $fh = fopen($file, 'r');
-      $contents = fread($fh, filesize($file));
-      ini_set('highlight.comment', 'silver;font-size:10px;display:none;');
-      echo rex_highlight_string($contents);
+    switch ($func) {
+      case 1:
+        $module_name = $addonname." ".$modul_name;
+        $module_in = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_in);
+        $module_out = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_out);
+      break;      
+      case 2:
+        $module_name = $addonname." ".$modul_name2;
+        $module_in = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_in2);
+        $module_out = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_out2);
+      break;
 
-      echo '
-      <h4>'.$modul_out.':</h4>';
-      $file = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$modul_out;
-      $fh = fopen($file, 'r');
-      $contents = fread($fh, filesize($file));
-      echo rex_highlight_string($contents);
-      echo '
-    </div><!-- /.addon_template -->
+      case 4:
+        $template_name = $addonname." Empfehlungen Template";
+        $template_code = rex_get_file_contents($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/modules/'.$template1);
+      break;
 
-    <div class="addon_template">
-      <p>Die Dateien der Beispielmodule befinden sich im Addon Ordner: <cite>./addons/'.$mypage.'/modules/...</cite></p>
-    </div><!-- /.addon_template -->
-
-  </div><!-- /.rex-addon-content -->
-</div><!-- /.rex-addon-output -->
+    }
 
 
-<script type="text/javascript">
-<!--
-jQuery(function($) {
 
-  $("#standard_show").click(function() {
-    $("#demo_modul").slideToggle("slow");
-  });
+    if($func != 4) {
+      krumo($module_name);
 
-});
-//-->
-</script>
+      //search if module exists then delete and write new
+      $sql->setQuery('SELECT * FROM rex_module WHERE name LIKE "%'.$module_name.'%"');
+      $array_size = intval(sizeof($sql->getArray()));
+      
+      if($array_size >= 1) {
+        $sql->setTable('rex_module');
+        
+        $sql->setWhere('name = "'.$module_name.'"');
+        $sql->setValue('eingabe', addslashes($module_in));
+        $sql->setValue('ausgabe', addslashes($module_out));
+        $sql->setValue('name', $module_name);
+        $sql->update();
+        
+        if($sql->insert())
+	        echo rex_info("Das Modul '".$module_name."' wurde erfolgreich aktualisiert!");
+	    else 
+	    	echo rex_warning("Ein Fehler beim Aktualisieren ist aufgetreten!");
 
-';
+        
+      } else if(sizeof($sql->getArray()) == 0) {
+  
+        $sql->setTable('rex_module');
+        $sql->setWhere('name = "'.$module_name.'"');
+        $sql->setValue('eingabe', addslashes($module_in));
+        $sql->setValue('ausgabe', addslashes($module_out));
+        $sql->setValue('name', $module_name);
+        krumo($sql);
+        
+        if($sql->insert())
+	        echo rex_info("Das Modul '".$module_name."' wurde erfolgreich installiert!");
+	    else 
+	    	echo rex_warning("Ein Fehler beim Installieren ist aufgetreten!");
+
+      }
+    } else {
+      //search if template exists than update else write a new module
+      $sql->setQuery('SELECT * FROM rex_template WHERE name LIKE "%'.$template_name.'%"');
+      $array_size = intval(sizeof($sql->getArray()));
+    
+      if($array_size >= 1) {
+        $sql->setTable('rex_template');
+        $sql->setWhere('name = "'.$template_name.'"');
+        $sql->setValue('content', $template_code);
+        $sql->setValue('updatedate', time());
+        $sql->update();
+        
+        echo rex_info("Das Template '".$module_name."' wurde erfolgreich aktualisiert!");
+        
+      }else if(sizeof($sql->getArray()) == 0) {
+        $sql->setTable('rex_template');
+        $sql->setValue('name', $template_name);
+        $sql->setValue('content', $template_code);
+        $sql->setValue('active', '0');
+        $sql->setValue('createuser','entwickler');
+        $sql->setValue('updateuser','entwickler');
+        $sql->setValue('createdate',time());
+        $sql->setValue('updatedate', time());
+        $sql->setValue('attributes', 'a:3:{s:10:"categories";a:1:{s:3:"all";s:1:"1";}s:5:"ctype";a:0:{}s:7:"modules";a:1:{i:1;a:1:{s:3:"all";s:1:"1";}}}');
+        $sql->setValue('revision','0');
+        $sql->insert();
+
+        echo rex_info("Das Template '"."'wurde erfolgreich installiert!");
+
+      }
+    }
+  }
+}
+?>

@@ -19,11 +19,14 @@ Das Addon ist zwar explizit dahingehend programmiert, daß es so übersichtlich 
 
 h3. Roadmap
 
-* Switch, ob beim Anlegen default online oder offline
+* Switch, ob Artikel beim Anlegen per default online oder offline
 * Anlegen von Artikeln ohne Temp-Artikel
 * Mehrere Module zur Auswahl
 * Tagging via MetaInfos
 * Trackbacks
 * Comments
 * Cleanup von blogmode_temp-Artikeln
-
+* Mehrsprachigkeit
+* Output Slice Content nach fertigem Update
+* CTYPE als Einstellung berücksichtigen
+* Wordpress-XML-Import

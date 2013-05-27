@@ -1,9 +1,9 @@
 <?php
 /**
-* Addon_Template
+* Blogmode
 *
 * @author http://rexdev.de
-* @link   https://github.com/jdlx/addon_template
+* @link   https://github.com/cukabeka
 *
 * @package redaxo4.3
 * @version 0.2.1
@@ -20,7 +20,7 @@ $func    = rex_request('func',    'string');
 ////////////////////////////////////////////////////////////////////////////////
 $chapterpages = array (
 ''            => array('Readme'                       ,'README.textile'                           ,'textile'),
-'wiki'        => array('Forum'                        ,'https://github.com/cukabeka/rex_blogmode')
+'wiki'        => array('Github'                        ,'https://github.com/cukabeka/rex_blogmode' ,'jsopenwin')
 );
 
 // BUILD CHAPTER NAVIGATION
