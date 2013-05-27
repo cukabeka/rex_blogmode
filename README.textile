@@ -13,10 +13,6 @@ h3. Mitgelieferte Module
 
 Die beiden Module sind Beispiele, wie sinnvoll mit diesem Konzept umgegangen werden kann. Der Startartikel der gewählten Kategorie sollte sinnvollerweise das Modul "Blogmode Kategorieübersicht" enthalten. 
 
-h3. Was das Addon nicht ist..
-
-Das Addon ist zwar explizit dahingehend programmiert, daß es so übersichtlich und nachvollziehbar wie möglich gehalten ist, aber es ersetzt weder ein Tutorial noch eine ungefähre Vorstellung von Aufbau & Funktion eines Redaxo Addons..  und zumindest gewisse PHP/HTML Kenntnisse sind selbstredend. Sind diese Voraussetzungen erfüllt, dürfte man per copy, paste & adapt - _und einer eigenen Idee was man eigentlich machen will_ - aber schnell etwas funktionierendes auf solider Basis erstellen können.
-
 h3. Roadmap
 
 * Switch, ob Artikel beim Anlegen per default online oder offline
