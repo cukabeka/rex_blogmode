@@ -26,3 +26,4 @@ h3. Roadmap
 * Output Slice Content nach fertigem Update
 * CTYPE als Einstellung berücksichtigen
 * Wordpress-XML-Import
+* RSS-Feed-Template
