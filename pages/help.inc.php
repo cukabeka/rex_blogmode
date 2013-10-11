@@ -1,126 +1,59 @@
 <?php
 /**
-* Addon_Template
+* Blogmode
 *
 * @author http://rexdev.de
-* @link   https://github.com/jdlx/addon_template
+* @link   https://github.com/cukabeka
 *
 * @package redaxo4.3
 * @version 0.2.1
 */
 
-// ERROR_REPORTING
+// GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////
-/*ini_set('error_reporting', 'E_ALL');
-ini_set('display_errors', 'On');*/
+$mypage  = rex_request('page',    'string');
+$subpage = rex_request('subpage', 'string');
+$chapter = rex_request('chapter', 'string');
+$func    = rex_request('func',    'string');
 
-
-// ADDON IDENTIFIER AUS ORDNERNAMEN ABLEITEN
+// SUBNAVIGATION ITEMS
 ////////////////////////////////////////////////////////////////////////////////
-$mypage = explode('/redaxo/include/addons/',str_replace(DIRECTORY_SEPARATOR, '/' ,__FILE__));
-$mypage = explode('/',$mypage[1]);
-$mypage = $mypage[0];
-$myroot = $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/';
-
-
-// ADDON REX COMMONS
-////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['rxid'][$mypage] = 'blogmode';
-$REX['ADDON']['page'][$mypage] = $mypage;
-$REX['ADDON']['name'][$mypage] = $mypage;
-$Revision = '';
-$REX['ADDON'][$mypage]['VERSION'] = array
-(
-'VERSION'      => 0,
-'MINORVERSION' => 2,
-'SUBVERSION'   => 1,
+$chapterpages = array (
+''            => array('Start'                       ,'Intro.textile'                           ,'textile'), 
+'readme'      => array('Readme'                       ,'README.textile'                           ,'textile'),
+'wiki'        => array('Github'                        ,'https://github.com/cukabeka/rex_blogmode' ,'jsopenwin')
 );
-$REX['ADDON']['version'][$mypage]     = implode('.', $REX['ADDON'][$mypage]['VERSION']);
-$REX['ADDON']['author'][$mypage]      = 'cukabeka';
-$REX['ADDON']['supportpage'][$mypage] = 'forum.redaxo.de';
-$REX['ADDON']['perm'][$mypage]        = $mypage.'[]';
-$REX['PERM'][]                        = $mypage.'[]';
 
-
-// STATIC ADDON SETTINGS
+// BUILD CHAPTER NAVIGATION
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON'][$mypage]['rex_list_pagination'] = 20;
-$REX['ADDON'][$mypage]['params_cast'] = array (
-  'page'        => 'unset',
-  'subpage'     => 'unset',
-  'minorpage'   => 'unset',
-  'func'        => 'unset',
-  'submit'      => 'unset',
-  'sendit'      => 'unset',
-  'PHPSESSID'   => 'unset',
-  );
-
-// DYNAMISCHE SETTINGS
-////////////////////////////////////////////////////////////////////////////////
-// --- DYN
-$REX["ADDON"]["rex_blogmode"]["settings"] = array (
-  'SELECT' => 
-  array (
-    'module_id' => '12',
-    'template_id' => '1',
-  ),
-  'MULTISELECT' => 
-  array (
-    'categories' => 
-    array (
-      0 => '38',
-    ),
-  ),
-  'LINKLIST' => 
-  array (
-    1 => '',
-  ),
-  'TEXTINPUT' => 
-  array (
-    1 => '',
-  ),
-  'TEXTAREA' => 
-  array (
-    1 => '',
-  ),
-  'VALUE' => 
-  array (
-    4 => '2',
-  ),
-);
-// --- /DYN
-
-
-// AUTO INCLUDE FUNCTIONS & CLASSES
-////////////////////////////////////////////////////////////////////////////////
-if ($REX['REDAXO'])
+$chapternav = '';
+foreach ($chapterpages as $chapterparam => $chapterprops)
 {
-  $pattern = $myroot.'functions/function.*.inc.php';
-  $include_files = glob($pattern);
-  if(is_array($include_files) && count($include_files) > 0){
-     foreach ($include_files as $include)
-     {
-       require_once $include;
-     }
-  }
-
-  $pattern = $myroot.'classes/class.*.inc.php';
-  $include_files = glob($pattern);
-
-  if(is_array($include_files) && count($include_files) > 0){
-     foreach ($include_files as $include)
-     {
-       require_once $include;
-     }
+  if ($chapter != $chapterparam) {
+    $chapternav .= ' | <a href="?page='.$mypage.'&subpage='.$subpage.'&chapter='.$chapterparam.'" class="chapter '.$chapterparam.' '.$chapterprops[2].'">'.$chapterprops[0].'</a>';
+  } else {
+    $chapternav .= ' | <span class="chapter '.$chapterparam.' '.$chapterprops[2].'">'.$chapterprops[0].'</span>';
   }
 }
+$chapternav = ltrim($chapternav, " | ");
 
-// SUBPAGES
-//////////////////////////////////////////////////////////////////////////////
-$REX['ADDON'][$mypage]['SUBPAGES'] = array (
-  //     subpage    ,label                         ,perm   ,params               ,attributes
-  array ('settings' ,'Einstellungen'               ,'admin'     ,''                   ,''),
-  array ('addpost'	,'Add Post'                    ,''     ,''                   ,''),
-  array ('modul'    ,'Modul'                       ,'admin'     ,''                   ,''),
-  array ('help'     ,'Hilfe'                       ,''     ,''                   ,''),
-);
+// BUILD CHAPTER OUTPUT
+////////////////////////////////////////////////////////////////////////////////
+$addonroot = $REX['INCLUDE_PATH']. '/addons/'.$mypage.'/';
+$source    = $chapterpages[$chapter][1];
+$parse     = $chapterpages[$chapter][2];
+
+$html = a720_incparse($addonroot,$source,$parse,true);
+
+
+// OUTPUT
+////////////////////////////////////////////////////////////////////////////////
+echo '
+<div class="rex-addon-output" id="subpage-'.$subpage.'">
+  <h2 class="rex-hl2" style="font-size:1em">'.$chapternav.'</h2>
+  <div class="rex-addon-content">
+    <div class= "addon-template">
+    '.$html.'
+    </div>
+  </div>
+</div>';
