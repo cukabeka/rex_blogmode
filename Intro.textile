@@ -1,0 +1,9 @@
+h1. Einf&uuml;hrung
+
+Als Benutzer m&uuml;ssen Sie lediglich den Men&uuml;punkt "Add Post" w&auml;hlen. Danach k&ouml;nnen Sie ganz einfach einen neuen Blogpost, News- oder Pressemitteilungsartikel einstellen. Sie m&uuml;ssen nur den Artikelnamen angeben und die gew&uuml;nschte Kategorie ausw&auml;hlen. 
+
+h2. Neuen Beitrag anlegen
+
+<p class="rex-button">
+<a href="index.php?page=rex_blogmode&subpage=addpost" class="rex-button">Add Post</a>
+</p>

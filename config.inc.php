@@ -61,15 +61,14 @@ $REX['ADDON'][$mypage]['params_cast'] = array (
 $REX["ADDON"]["rex_blogmode"]["settings"] = array (
   'SELECT' => 
   array (
-    'module_id' => '2',
+    'module_id' => '12',
     'template_id' => '1',
   ),
   'MULTISELECT' => 
   array (
     'categories' => 
     array (
-      0 => '21',
-      1 => '5',
+      0 => '1',
     ),
   ),
   'LINKLIST' => 
