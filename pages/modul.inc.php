@@ -79,7 +79,6 @@ $modul_name2 = 'Detailansicht';
 
 
     if($func != 4) {
-      krumo($module_name);
 
       //search if module exists then delete and write new
       $sql->setQuery('SELECT * FROM rex_module WHERE name LIKE "%'.$module_name.'%"');
