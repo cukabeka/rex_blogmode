@@ -12,9 +12,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-
-<?php
-
 $cat = OOCategory::getCategoryById($this->getValue("category_id"));
 $article = $cat->getArticles();
 
