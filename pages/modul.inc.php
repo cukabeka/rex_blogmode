@@ -106,7 +106,7 @@ $modul_name2 = 'Detailansicht';
         $sql->setValue('eingabe', addslashes($module_in));
         $sql->setValue('ausgabe', addslashes($module_out));
         $sql->setValue('name', $module_name);
-        krumo($sql);
+        # krumo($sql);
         
         if($sql->insert())
 	        echo rex_info("Das Modul '".$module_name."' wurde erfolgreich installiert!");
